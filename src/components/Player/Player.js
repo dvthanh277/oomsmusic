@@ -12,7 +12,7 @@ function Player({ song }) {
 
     useEffect(() => {
         if (song.encodeId !== null && song.encodeId !== '') {
-            request.get(`/song/${song.encodeId}`).then(async (res) => {
+            request.get(`/song?id=${song.encodeId}`).then(async (res) => {
                 if (res.data) {
                     setPlay(true)
                     setSrcAudio(res.data[128])
