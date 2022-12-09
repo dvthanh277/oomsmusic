@@ -1,0 +1,65 @@
+.ooms-home-top {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.ooms-boxMusic2 {
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: rgba(112, 144, 176, 0.08) 14px 17px 40px 4px;
+    border-color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    cursor: pointer;
+    &a {
+        display: block;
+        width: 49%;
+    }
+    &:hover {
+        img {
+            transform: scale(1.05);
+            opacity: 0.8;
+            transition: all 0.3s;
+        }
+        .box-title {
+            padding-left: 2px;
+            transition: all 0.3s;
+            color: #422afb;
+        }
+    }
+    .box-image {
+        border-radius: 20px;
+        overflow: hidden;
+        width: 140px;
+        img {
+            width: 100%;
+            transition: all 0.3s;
+        }
+    }
+    .box-title-wrapper {
+        width: calc(100% - 160px);
+    }
+    .box-title {
+        font-weight: bold;
+        margin: 12px 8px 16px;
+        transition: all 0.3s;
+        font-size: 20px;
+    }
+    .box-description {
+        color: #afafaf;
+        margin: 0 8px;
+        font-size: 16px;
+        word-break: break-word;
+        word-break: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        padding-right: 50px;
+    }
+}
