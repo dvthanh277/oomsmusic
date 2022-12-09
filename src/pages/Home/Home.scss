@@ -1,0 +1,16 @@
+.ooms-title-head {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 40px 20px 20px;
+}
+.ooms-home-new {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .ooms-container-left {
+        width: 59%;
+    }
+    .ooms-container-right {
+        width: 38%;
+    }
+}

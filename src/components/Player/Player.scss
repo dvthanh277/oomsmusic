@@ -1,0 +1,242 @@
+.ooms-player {
+    right: 30px;
+    width: calc(100vw - 370px);
+    position: fixed;
+    bottom: 16px;
+    z-index: 10;
+    border-radius: 20px;
+    min-height: 75px;
+    background-color: #ffffff;
+    box-shadow: rgb(112 144 176 / 8%) 1px 0px 40px 4px;
+    border-color: #e2e8f0 !important;
+
+    audio {
+        display: none;
+    }
+    &-wrapper {
+        position: relative;
+        min-height: 75px;
+        display: flex;
+        align-items: center;
+        .player {
+            &-left,
+            &-right,
+            &-center {
+                display: flex;
+                align-items: center;
+            }
+            &-left {
+                width: 30%;
+            }
+            &-center {
+                width: 40%;
+                justify-content: center;
+            }
+            &-right {
+                width: 30%;
+                justify-content: center;
+            }
+            &-thumb {
+                width: 100px;
+                height: 75px;
+                position: relative;
+                img {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 20px;
+                    overflow: hidden;
+                    top: -25px;
+                    left: 0px;
+                    border: 3px solid #fff;
+                    position: absolute;
+                }
+                .waveBg {
+                    width: 100px;
+                    height: 100px;
+                    position: absolute;
+                    top: -25px;
+                    left: 0;
+                    background: rgba($color: #000000, $alpha: 0.15);
+                    border-radius: 20px;
+                    z-index: 1;
+                    border: 3px solid #fff;
+                }
+                .wave {
+                    position: absolute;
+                    top: 34%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 2;
+                    .obj {
+                        width: 3px;
+                        background: #fff;
+                    }
+                }
+            }
+            &-title {
+                max-width: 230px;
+                margin-left: 16px;
+                width: 230px;
+                margin-left: 16px;
+                position: absolute;
+                left: 90px;
+            }
+            &-name {
+                font-size: 19px;
+                margin-bottom: 4px;
+                word-break: break-word;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            &-singer {
+                font-size: 18px;
+                color: #afafaf;
+                word-break: break-word;
+            }
+            &-controls {
+                margin: 0 10%;
+                position: relative;
+                &::after {
+                    content: '';
+                    background-color: #fff;
+                    box-shadow: -12px 0px 10px 0px #fff;
+                    width: 220px;
+                    height: 70px;
+                    position: absolute;
+                    top: -10px;
+                    left: 0;
+                    z-index: 2;
+                }
+                ul {
+                    display: flex;
+                    position: relative;
+                    z-index: 4;
+                    align-items: center;
+                    li {
+                        .play,
+                        .pause {
+                            margin: 0 20px;
+                            width: 50px;
+                            height: 50px;
+                        }
+                        button {
+                            &:hover {
+                                opacity: 0.85;
+                            }
+                        }
+                    }
+                }
+            }
+            &-progress {
+                width: 100%;
+                position: relative;
+                z-index: 4;
+                #sliderTime {
+                    width: 100%;
+                    margin-left: 0;
+                    position: absolute;
+                    top: -20px;
+                    left: 0;
+                }
+                p {
+                    position: absolute;
+                    font-size: 14px;
+                    padding-top: 6px;
+                    &.time {
+                        left: 0;
+                    }
+                    &.duration {
+                        right: 0;
+                        text-align: right;
+                    }
+                }
+            }
+            &-volume {
+                margin-left: 50px;
+                display: flex;
+                align-items: center;
+                position: relative;
+                z-index: 4;
+                .slider {
+                    width: 80px;
+                }
+            }
+        }
+    }
+}
+
+// excess height to improve interactive area / accessibility
+$height: 30px;
+$thumb-height: 13px;
+$track-height: 3px;
+
+// colours
+$upper-color: rgba(
+    $color: #cec7ff,
+    $alpha: 1,
+);
+$lower-color: rgba(
+    $color: #422afb,
+    $alpha: 1,
+);
+$thumb-color: rgba(
+    $color: #422afb,
+    $alpha: 1,
+);
+$thumb-hover-color: rgba(
+    $color: #422afb,
+    $alpha: 1,
+);
+
+$upper-background: linear-gradient(to bottom, $upper-color, $upper-color) 100% 50% / 100% $track-height no-repeat
+    transparent;
+$lower-background: linear-gradient(to bottom, $lower-color, $lower-color) 100% 50% / 100% $track-height no-repeat
+    transparent;
+
+// Webkit cannot style progress so we fake it with a long shadow
+// on the thumb element
+@function webkit-slider-thumb-shadow($i: 1) {
+    $val: #{$i}px 0 0 -#{($thumb-height - $track-height) / 2} #{$upper-color};
+    @if $i == 1 {
+        @for $k from 2 through 1000 {
+            $val: #{$val}, webkit-slider-thumb-shadow($k);
+        }
+    }
+    @return $val;
+}
+
+.slider {
+    appearance: none;
+    margin: 0;
+    margin-left: 10px;
+    height: $height;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+    &:focus {
+        outline: none;
+    }
+}
+
+// Webkit
+.slider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: $height;
+    background: $lower-background;
+}
+
+.slider::-webkit-slider-thumb {
+    position: relative;
+    appearance: none;
+    height: $thumb-height;
+    width: $thumb-height;
+    background: $thumb-color;
+    border-radius: 100%;
+    border: 0;
+    top: 50%;
+    margin-top: (-$thumb-height/2);
+    box-shadow: webkit-slider-thumb-shadow();
+    transition: background-color 150ms;
+}
