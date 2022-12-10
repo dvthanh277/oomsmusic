@@ -75,8 +75,8 @@ function Player({ song }) {
         }
     }
     const hanldeOnTimeUpdate = () => {
-        let track = document.querySelector('#track');
-        if (track.currentTime >= song.duration) {
+        let track = document.querySelector('#track');;
+        if (Math.floor(track.currentTime + 1) >= song.duration) {
             handleNextSong();
         }
         setCurrentTime(secondsToHms(track.currentTime))
