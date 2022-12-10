@@ -11,7 +11,9 @@ function Player({ song }) {
     const [currentTime, setCurrentTime] = useState('00:00');
     const [srcAudio, setSrcAudio] = useState('');
     const listPlay = JSON.parse(localStorage.getItem("listPlay"))
-    var currentPlay = listPlay.findIndex((item) => item.encodeId === song.encodeId);
+    if (listPlay) {
+        var currentPlay = listPlay.findIndex((item) => item.encodeId === song.encodeId);
+    }
     const context = useContext(SongContext)
     useEffect(() => {
         resetPlay();
@@ -22,14 +24,14 @@ function Player({ song }) {
                     setSrcAudio(res.data[128])
                 }
                 else {
-                    if (!song.isWorldWide) {
-                        request.get(res.url).then(async (res2) => {
-                            if (res2.data) {
-                                setPlay(true)
-                                setSrcAudio(res.data[128])
-                            }
-                        })
-                    }
+                    // if (!song.isWorldWide) {
+                    //     request.get(res.url).then(async (res2) => {
+                    //         if (res2.data) {
+                    //             setPlay(true)
+                    //             setSrcAudio(res.data[128])
+                    //         }
+                    //     })
+                    // }
                     console.log(res.msg)
                 }
             });
