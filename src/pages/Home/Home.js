@@ -19,7 +19,6 @@ import './Home.scss'
 function Home() {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([]);
-    console.log(data);
     useEffect(() => {
         request.get(apiPath.home).then((res) => {
             setLoading(false)
@@ -33,8 +32,8 @@ function Home() {
     else {
         const dataSlide = data[0].items.filter((item, index) => item.type !== 8)
         const dataTop = data[4].items;
-        const dataNew = data[3].items.all.filter((item, index) => item.isWorldWide).filter((item2, index2) => index2 < 5);
-        const dataTrending = data[6].items.filter((item) => item.isWorldWide)
+        const dataNew = data[3].items.all.filter((item2, index2) => index2 < 5);
+        const dataTrending = data[6].items
         const dataSinger = data[8].items;
         const dataTop100 = data[9].items.filter((item2, index2) => index2 < 4);
         const dataNewDay = data[5].items;
@@ -77,7 +76,7 @@ function Home() {
                         </h2>
                         <div className="ooms-content-song">
                             {dataNew.map((item, index) => {
-                                return <ItemSong1 props={item} key={index}></ItemSong1>
+                                return <ItemSong1 props={item} list={dataNew} key={index}></ItemSong1>
                             })}
                         </div>
                     </div>
@@ -88,7 +87,7 @@ function Home() {
                         </h2>
                         <div className="ooms-content-song">
                             {dataTrending.map((item, index) => {
-                                return <ItemSong2 props={item} key={index}></ItemSong2>
+                                return <ItemSong2 props={item} list={dataTrending} key={index}></ItemSong2>
                             })}
                         </div>
                     </div>

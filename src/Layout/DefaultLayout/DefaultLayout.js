@@ -10,12 +10,9 @@ export const SongContext = createContext();
 
 function DefaultLayout({ children }) {
     const [song, setSong] = useState([])
-    // useEffect(() => {
-    //     request.get(apiPath.newMusic).then((res) => {
-    //         setListSong(res.data)
-    //     })
-    // }, [])
-    const handleClickSong = (songValue) => {
+    const handleClickSong = (songValue, list) => {
+        localStorage.setItem('isPlay', true)
+        localStorage.setItem('listPlay', JSON.stringify(list))
         setSong(songValue)
     }
     const value = {
