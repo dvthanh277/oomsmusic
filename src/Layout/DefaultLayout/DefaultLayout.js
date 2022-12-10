@@ -12,7 +12,7 @@ function DefaultLayout({ children }) {
     const [song, setSong] = useState([])
     const handleClickSong = (songValue, list) => {
         localStorage.setItem('isPlay', true)
-        localStorage.setItem('listPlay', JSON.stringify(list))
+        localStorage.setItem('listPlay', JSON.stringify(list.filter(item => item.isWorldWide)))
         setSong(songValue)
     }
     const value = {

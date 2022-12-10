@@ -8,6 +8,7 @@ function ItemSong1({ props, list }) {
     const context = useContext(SongContext)
     return (
         <div className="ooms-item-song1">
+            {!props.isWorldWide ? <div className='isWorldWide'><p className='textNoti'>Nội dung này không tải được cho quốc gia của bạn!</p></div> : ``}
             <div className="song-head">
                 <img className="song-thumb" src={props.thumbnail} alt={props.title} onClick={() => context.handleClickSong(props, list)}></img>
                 <p onClick={() => context.handleClickSong(props, list)} className={`song-title ${context.song.encodeId === props.encodeId ? `active` : ``}`} title={props.title}>{props.title}</p>

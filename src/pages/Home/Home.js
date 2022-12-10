@@ -32,7 +32,7 @@ function Home() {
     else {
         const dataSlide = data[0].items.filter((item, index) => item.type !== 8)
         const dataTop = data[4].items;
-        const dataNew = data[3].items.all.filter((item2, index2) => index2 < 5);
+        const dataNew = data[3].items.all.filter(item => item.isWorldWide).filter((item2, index2) => index2 < 5);
         const dataTrending = data[6].items
         const dataSinger = data[8].items;
         const dataTop100 = data[9].items.filter((item2, index2) => index2 < 4);

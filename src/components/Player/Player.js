@@ -120,7 +120,7 @@ function Player({ song }) {
 
                 <div className='player-left'>
                     <div className='player-thumb'>
-                        <img src={song.thumbnailM || './images/music.jpg'} alt={song.title}></img>
+                        <img src={song.thumbnailM || '../../images/music.jpg'} alt={song.title}></img>
                         {play ? <><div className='waveBg'></div><div className="wave">
                             <div className="obj"></div>
                             <div className="obj"></div>
