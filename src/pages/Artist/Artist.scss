@@ -1,0 +1,65 @@
+.ooms-artist {
+    display: flex;
+    padding: 10px 0 0;
+    .artist {
+        &-info {
+            position: sticky;
+            top: 120px;
+            height: 600px;
+            max-width: 340px;
+            border-radius: 30px;
+            overflow: hidden;
+            background-color: #fff;
+            padding: 10px 10px 30px;
+        }
+
+        &-image {
+            border-radius: 30px;
+            overflow: hidden;
+            img {
+                width: 100%;
+            }
+        }
+        &-text {
+            padding: 0 10px;
+            .name {
+                font-weight: bold;
+                font-size: 26px;
+                text-align: left;
+                padding: 20px 0 10px;
+                color: #7664ff;
+            }
+            .info {
+                word-break: break-word;
+                font-size: 16px;
+                color: #afafaf;
+                padding: 20px 0;
+                text-align: justify;
+            }
+        }
+        &-section {
+            margin-left: 50px;
+            width: 100%;
+        }
+        &-song {
+            &-wrapper {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                .ooms-item-song2 {
+                    position: relative;
+                    width: 49%;
+                    padding-right: 12px;
+                    .song-title {
+                        font-size: 16px;
+                    }
+                    .song-duration {
+                        max-width: 15%;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}

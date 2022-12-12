@@ -1,5 +1,9 @@
+import Working from "../Working/Working";
+
 function Category() {
-    return (<h1>Category PAGE</h1>);
+    return (
+        <Working></Working>
+    );
 }
 
 export default Category;

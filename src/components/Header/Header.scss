@@ -1,6 +1,6 @@
 header {
     right: 30px;
-    width: calc(100vw - 370px);
+    width: calc(100vw - 350px);
     position: fixed;
     top: 16px;
     z-index: 10;
@@ -17,6 +17,8 @@ header {
             justify-content: space-between;
             height: 75px;
             padding: 0 30px;
+            border-bottom: 3px solid rgb(244 244 244);
+            border-radius: 20px;
         }
         &-search {
             display: flex;

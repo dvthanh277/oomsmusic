@@ -1,0 +1,190 @@
+$textDur: 2000ms;
+$waveDur: 4000ms;
+.ooms-working {
+    width: 65%;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 500px;
+    margin-top: 30px;
+    img {
+        width: 500px;
+        margin-top: 30px;
+    }
+    .container {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .text {
+        font-size: 6rem;
+        font-weight: 900;
+        display: inline-block;
+        position: absolute;
+        bottom: 0;
+        animation: text $textDur ease-in infinite;
+        transform: translatez(0);
+        &-w {
+            left: 0rem;
+            transform: translate3d(0, -4rem, 0);
+            animation: text-w $textDur ease-in infinite;
+        }
+        &-a {
+            left: 5.4rem;
+            animation-delay: 150ms;
+        }
+        &-v {
+            left: 9.6rem;
+            animation-delay: 230ms;
+        }
+        &-e {
+            left: 13rem;
+            animation-delay: 310ms;
+        }
+    }
+
+    .coast {
+        // wave: translate-x
+        position: absolute;
+        left: 1.3rem;
+        bottom: 1.7rem;
+        width: 6.2rem;
+        height: 2.2rem;
+        display: inline-block;
+        animation: coast $waveDur linear infinite;
+        transform: translateZ(0);
+    }
+
+    .wave-rel-wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        perspective: 3rem;
+        perspective-origin: 0%, 50%;
+    }
+
+    .wave {
+        // wave: width && scale && rotate
+        position: absolute;
+        width: 6.2rem;
+        height: 2.2rem;
+        border-radius: 1.1rem;
+        background: linear-gradient(292.37deg, rgb(168, 114, 255) 10.84%, rgb(34, 0, 248) 95.27%);
+        display: inline-block;
+        animation: wave $waveDur linear infinite;
+        will-change: width;
+        transform: translateZ(0) scale(0);
+    }
+
+    .delay {
+        animation-delay: $waveDur / 2;
+    }
+
+    @keyframes text {
+        0% {
+            transform: translate3d(0, 0, 0);
+        }
+        30% {
+            transform: translate3d(0, 0, 0);
+        }
+        45% {
+            transform: translate3d(0, -4rem, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    @keyframes text-w {
+        0% {
+            transform: translate3d(0, -4rem, 0);
+        }
+        38% {
+            transform: translate3d(0, -4rem, 0);
+        }
+        69% {
+            transform: translate3d(0, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, -4rem, 0);
+        }
+    }
+
+    @keyframes coast {
+        0% {
+            transform: translate3d(0, 0, 0);
+        }
+        23% {
+            transform: translate3d(0, 0, 0);
+        }
+        50% {
+            transform: translate3d(16rem, 0, 0);
+        }
+        100% {
+            transform: translate3d(16rem, 0, 0);
+        }
+    }
+
+    @keyframes wave {
+        0% {
+            transform: scale(0);
+            width: 2.2rem;
+        }
+        10% {
+            transform: scale(1);
+        }
+        23% {
+            width: 2.2rem;
+        }
+        32% {
+            width: 6.1rem;
+        }
+        42% {
+            width: 5rem;
+            transform: rotateY(0deg) scale(1, 1);
+        }
+        51% {
+            transform: rotateY(90deg) scale(0.6, 0.2);
+        }
+        52% {
+            transform: rotateY(90deg) scale(0);
+        }
+        100% {
+            transform: rotateY(90deg) scale(0);
+        }
+    }
+    .ooms-oops {
+        font-size: 80px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .ooms-cons {
+        font-size: 22px;
+    }
+    .ooms-home {
+        a {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(292.37deg, rgb(168, 114, 255) 10.84%, rgb(34, 0, 248) 95.27%);
+            color: #fff;
+            font-size: 18px;
+            padding: 8px 20px;
+            border-radius: 15px;
+            margin-left: 10px;
+            min-width: 120px;
+            margin-top: 50px;
+            transition: all 0.3s;
+            &:hover {
+                transform: translateY(-2px);
+                opacity: 0.85;
+                transition: all 0.3s;
+            }
+            .ooms-icon {
+                color: #fff;
+                margin-right: 10px;
+            }
+        }
+    }
+}

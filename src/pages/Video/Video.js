@@ -1,5 +1,7 @@
+import Working from "../Working/Working";
+
 function Video() {
-    return (<h1>Video PAGE</h1>);
+    return (<Working></Working>);
 }
 
 export default Video;

@@ -8,7 +8,8 @@ function ItemSong1({ props, list }) {
     const context = useContext(SongContext)
     return (
         <div className="ooms-item-song1">
-            {!props.isWorldWide ? <div className='isWorldWide'><p className='textNoti'>Nội dung này không tải được cho quốc gia của bạn!</p></div> : ``}
+            {/* {!props.isWorldWide ? <div className='isWorldWide'><p className='textNoti'>Nội dung này không tải được cho quốc gia của bạn!</p></div> : ``} */}
+            {props.streamingStatus === 2 ? <div className='vip-song'><img src='../../images/vip.png' alt='vip-song'></img><span>VIP Song</span></div> : !props.isWorldWide ? <div className='isWorldWide'><img src='../../images/location.png' alt='location-song'></img><span>Nội dung này không tải được cho quốc gia của bạn!</span></div> : ``}
             <div className="song-head">
                 <img className="song-thumb" src={props.thumbnail} alt={props.title} onClick={() => context.handleClickSong(props, list)}></img>
                 <p onClick={() => context.handleClickSong(props, list)} className={`song-title ${context.song.encodeId === props.encodeId ? `active` : ``}`} title={props.title}>{props.title}</p>
@@ -16,7 +17,7 @@ function ItemSong1({ props, list }) {
 
             <p className="song-singer"> {props.artistsNames} </p>
             <p className="song-duration">{secondsToHms(props.duration)}</p>
-            {context.song.encodeId === props.encodeId
+            {context.song.encodeId === props.encodeId && context.isPlay
                 ? <div className="wave">
                     <div className="obj"></div>
                     <div className="obj"></div>

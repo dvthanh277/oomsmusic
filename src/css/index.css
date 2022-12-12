@@ -20,3 +20,6 @@ a {
     display: inline-block;
     vertical-align: middle;
 }
+body::-webkit-scrollbar {
+    display: none;
+}

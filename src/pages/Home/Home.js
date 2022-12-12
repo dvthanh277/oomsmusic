@@ -32,7 +32,7 @@ function Home() {
     else {
         const dataSlide = data[0].items.filter((item, index) => item.type !== 8)
         const dataTop = data[4].items;
-        const dataNew = data[3].items.all.filter(item => item.isWorldWide).filter((item2, index2) => index2 < 5);
+        const dataNew = data[3].items.all.filter((item2, index2) => index2 < 5);
         const dataTrending = data[6].items
         const dataSinger = data[8].items;
         const dataTop100 = data[9].items.filter((item2, index2) => index2 < 4);
@@ -99,10 +99,10 @@ function Home() {
                         dataSinger.map((item, index) => {
                             return <div className="ooms-boxSinger" key={index}>
                                 <div className="box-image">
-                                    <Link to={'artist' + item.link} state={item.encodeId}><img src={item.thumbnail} alt={item.name}></img>
+                                    <Link to={'artist/' + item.alias} state={item.alias}><img src={item.thumbnail} alt={item.name}></img>
                                     </Link>
                                 </div>
-                                <Link to={'artist' + item.link}><p className="box-title">{item.name}</p></Link>
+                                <Link to={'artist/' + item.alias} state={item.alias}><p className="box-title">{item.name}</p></Link>
                             </div>
                         })
                     }

@@ -17,22 +17,18 @@ function Player({ song }) {
     const context = useContext(SongContext)
     useEffect(() => {
         resetPlay();
-        if (song.encodeId !== null && song.encodeId !== '') {
+        if (song.encodeId) {
             request.get(`/song?id=${song.encodeId}`).then(async (res) => {
                 if (res.data) {
                     setPlay(true)
+                    context.handleIsPlay(true)
                     setSrcAudio(res.data[128])
                 }
                 else {
-                    // if (!song.isWorldWide) {
-                    //     request.get(res.url).then(async (res2) => {
-                    //         if (res2.data) {
-                    //             setPlay(true)
-                    //             setSrcAudio(res.data[128])
-                    //         }
-                    //     })
-                    // }
                     console.log(res.msg)
+                    if (res.err === -1110) {
+                        alert(res.msg)
+                    }
                 }
             });
         }
@@ -43,9 +39,11 @@ function Player({ song }) {
         let track = document.querySelector('#track');
         if (!play) {
             track.play()
+            context.handleIsPlay(true)
         }
         else {
             track.pause();
+            context.handleIsPlay(false)
         }
         setPlay(!play)
     }

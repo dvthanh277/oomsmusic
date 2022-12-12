@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const request = axios.create({
-    baseURL: `https://server-tau-six.vercel.app/api/`,
+    // baseURL: `https://zingmp3api.vercel.app/ooms-api`,
+    baseURL: `http://localhost:9001/ooms-api`,
 });
 
 request.interceptors.response.use(

@@ -10,14 +10,21 @@ export const SongContext = createContext();
 
 function DefaultLayout({ children }) {
     const [song, setSong] = useState([])
+    const [isPlay, setIsPlay] = useState(false);
+
     const handleClickSong = (songValue, list) => {
-        localStorage.setItem('isPlay', true)
-        localStorage.setItem('listPlay', JSON.stringify(list.filter(item => item.isWorldWide)))
+        localStorage.setItem('listPlay', JSON.stringify(list.filter(item => item.streamingStatus === 1)))
         setSong(songValue)
+    }
+    const handleIsPlay = (playValue) => {
+        localStorage.setItem('isPlay', playValue)
+        setIsPlay(playValue)
     }
     const value = {
         song,
-        handleClickSong
+        isPlay,
+        handleClickSong,
+        handleIsPlay
     }
     return (
         <>

@@ -8,7 +8,7 @@ function BoxMusic({ props }) {
                 <Link to={props.link} state={props.encodeId}><img src={props.thumbnailM} alt={props.title}></img>
                 </Link>
             </div>
-            <Link to={props.link}><p className="box-title">{props.title}</p></Link>
+            <Link to={props.link} state={props.encodeId}><p className="box-title">{props.title}</p></Link>
             <p className="box-description">{props.sortDescription}</p>
         </div>
     );

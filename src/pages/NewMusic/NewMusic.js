@@ -1,5 +1,8 @@
+import Working from "../Working/Working";
+
 function NewMusic() {
-    return (<h1>NewMusic PAGE</h1>);
+    return (<Working></Working>
+    );
 }
 
 export default NewMusic;

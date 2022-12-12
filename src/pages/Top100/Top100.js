@@ -1,5 +1,7 @@
+import Working from "../Working/Working";
+
 function Top100() {
-    return (<h1>Top100 PAGE</h1>);
+    return (<Working></Working>);
 }
 
 export default Top100;

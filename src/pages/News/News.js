@@ -1,5 +1,7 @@
+import Working from "../Working/Working";
+
 function News() {
-    return (<h1>News PAGE</h1>);
+    return (<Working></Working>);
 }
 
 export default News;

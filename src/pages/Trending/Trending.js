@@ -1,5 +1,7 @@
+import Working from "../Working/Working";
+
 function Trending() {
-    return (<h1>TRENDING PAGE</h1>);
+    return (<Working></Working>);
 }
 
 export default Trending;
