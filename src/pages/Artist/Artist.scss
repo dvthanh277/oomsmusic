@@ -1,20 +1,19 @@
 .ooms-artist {
     display: flex;
-    padding: 10px 0 0;
     .artist {
         &-info {
             position: sticky;
-            top: 120px;
-            height: 600px;
+            top: 0;
+            height: 580px;
             max-width: 340px;
-            border-radius: 30px;
+            border-radius: 24px;
             overflow: hidden;
             background-color: #fff;
             padding: 10px 10px 30px;
         }
 
         &-image {
-            border-radius: 30px;
+            border-radius: 24px;
             overflow: hidden;
             img {
                 width: 100%;
@@ -38,7 +37,7 @@
             }
         }
         &-section {
-            margin-left: 50px;
+            margin-left: 30px;
             width: 100%;
         }
         &-song {
@@ -49,7 +48,7 @@
                 justify-content: space-between;
                 .ooms-item-song2 {
                     position: relative;
-                    width: 49%;
+                    width: 100%;
                     padding-right: 12px;
                     .song-title {
                         font-size: 16px;
@@ -58,6 +57,17 @@
                         max-width: 15%;
                         font-size: 14px;
                     }
+                }
+            }
+        }
+        &-album {
+            &-wrapper {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 25px;
+                .ooms-boxMusic {
+                    width: 170px;
                 }
             }
         }

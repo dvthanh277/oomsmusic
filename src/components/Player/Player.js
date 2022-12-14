@@ -3,6 +3,8 @@ import './Player.scss'
 import { secondsToHms, hmsToSeconds } from '../../ultis/time'
 import request from '../../ultis/axios';
 import { SongContext } from '../../Layout/DefaultLayout/DefaultLayout';
+import { Link } from 'react-router-dom';
+import { apiPath } from '../../ultis/apiPath';
 
 function Player({ song }) {
     const [play, setPlay] = useState(false)
@@ -10,23 +12,31 @@ function Player({ song }) {
     const [volumeValue, setVolumeValue] = useState(1)
     const [currentTime, setCurrentTime] = useState('00:00');
     const [srcAudio, setSrcAudio] = useState('');
-    const listPlay = JSON.parse(localStorage.getItem("listPlay"))
-    if (listPlay) {
-        var currentPlay = listPlay.findIndex((item) => item.encodeId === song.encodeId);
-    }
+
     const context = useContext(SongContext)
+    const listPlay = JSON.parse(localStorage.getItem("listPlay")) || [];
+    var currentPlay = 0;
+    if (listPlay) {
+        currentPlay = listPlay.findIndex((item) => item.encodeId === song.encodeId);
+    }
+
     useEffect(() => {
         resetPlay();
         if (song.encodeId) {
+            let songActive = document.querySelectorAll('.playlist-song .song.active');
+            document.querySelector('.playlist-song').scrollTo({
+                top: songActive[songActive.length - 1].offsetTop - 78 * 2,
+                behavior: "smooth"
+            })
             request.get(`/song?id=${song.encodeId}`).then(async (res) => {
                 if (res.data) {
                     setPlay(true)
                     context.handleIsPlay(true)
                     setSrcAudio(res.data[128])
+                    // Scroll current song
                 }
                 else {
-                    console.log(res.msg)
-                    if (res.err === -1110) {
+                    if (res.err === -1110 || res.err === -1150) {
                         alert(res.msg)
                     }
                 }
@@ -34,9 +44,9 @@ function Player({ song }) {
         }
     }, [song]);
 
-
     const handlePlay = () => {
         let track = document.querySelector('#track');
+        console.log(listPlay);
         if (!play) {
             track.play()
             context.handleIsPlay(true)
@@ -61,6 +71,7 @@ function Player({ song }) {
         }
     }
     const handleNextSong = () => {
+        console.log(currentPlay);
         if (currentPlay + 1 < listPlay.length) {
             resetPlay();
             context.handleClickSong(listPlay[currentPlay + 1], listPlay)
@@ -72,11 +83,21 @@ function Player({ song }) {
             context.handleClickSong(listPlay[currentPlay - 1], listPlay)
         }
     }
+    const handleGetRecommendSong = async (id) => {
+        await request.get(apiPath.recommendSong + id).then(async (resRecommend) => {
+            if (resRecommend.data) {
+                let listRecommend = [...resRecommend.data.items]
+                return listRecommend
+            }
+        })
+    }
     const hanldeOnTimeUpdate = () => {
         let track = document.querySelector('#track');;
         if (Math.floor(track.currentTime + 1) >= song.duration) {
             handleNextSong();
+            // context.handleClickSong(listPlay[currentPlay], listPlay)
         }
+
         setCurrentTime(secondsToHms(track.currentTime))
     }
     const handleChangeTime = (e) => {
@@ -115,30 +136,88 @@ function Player({ song }) {
     return (
         <div className='ooms-player' id='ooms-player'>
             <div className='ooms-player-wrapper'>
+                <div className='player-playlist'>
+                    <p className='playlist-title'>Danh sách phát</p>
+                    <div className='playlist-song'>
+                        {
+                            listPlay.map((props, index) =>
 
-                <div className='player-left'>
-                    <div className='player-thumb'>
-                        <img src={song.thumbnailM || '../../images/music.jpg'} alt={song.title}></img>
-                        {play ? <><div className='waveBg'></div><div className="wave">
-                            <div className="obj"></div>
-                            <div className="obj"></div>
-                            <div className="obj"></div>
-                            <div className="obj"></div>
-                            <div className="obj"></div>
-                            <div className="obj"></div>
-                            <div className="obj"></div>
-                            <div className="obj"></div>
-                        </div></> : ``}
+                                <div className={`song ${context.song.encodeId === props.encodeId ? `active` : ``}`} key={index}>
+                                    {/* {!props.isWorldWide ? <div className='isWorldWide'><p className='textNoti'>Nội dung này không tải được cho quốc gia của bạn!</p></div> : ``} */}
+                                    {props.streamingStatus === 2 ? <div className='vip-song'><img src='../../images/vip.png' alt='vip-song'></img><span>VIP Song</span></div> : !props.isWorldWide ? <div className='isWorldWide'><img src='../../images/location.png' alt='location-song'></img><span>Nội dung này không tải được cho quốc gia của bạn!</span></div> : ``}
+                                    <div className="song-head">
+                                        <p className='song-number'>{index + 1 < 10 ? '0' + (index + 1) : index + 1}</p>
+                                        <img className='song-thumb' src={props.thumbnail} alt={props.title} onClick={() => context.handleClickSong(props)}></img>
+                                        <div className='title-wrapper'>
+                                            <p onClick={() => context.handleClickSong(props)} className={`song-title ${context.song.encodeId === props.encodeId ? `active` : ``}`} title={props.title}>{props.title}</p>
+                                            <p className="song-singer">{props.artists.map((item, index) => <Link to={'/artist/' + item.alias} key={index} state={item.alias}>{item.name}{index + 1 === props.artists.length ? "" : " ,  "} </Link>)} </p>
+                                        </div>
+                                    </div>
 
-                    </div>
-                    <div className='player-title'>
-                        <p className='player-name'>{song.title}</p>
-                        <p className='player-singer'>{song.artistsNames}</p>
+
+                                    <p className="song-duration">{secondsToHms(props.duration)}</p>
+                                    {context.song.encodeId === props.encodeId && context.isPlay
+                                        ? <div className="wave">
+                                            <div className="obj"></div>
+                                            <div className="obj"></div>
+                                            <div className="obj"></div>
+                                            <div className="obj"></div>
+                                            <div className="obj"></div>
+                                            <div className="obj"></div>
+                                            <div className="obj"></div>
+                                            <div className="obj"></div>
+                                        </div>
+                                        : <button onClick={() => context.handleClickSong(props)} className="song-play">
+                                            <span className="ooms-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                                                </svg>
+                                            </span></button>}
+                                </div>
+                            )
+                        }
+
                     </div>
                 </div>
-                <div className='player-center'>
+                <div className='player-playing'>
+                    <div className='player-info'>
+                        <div className='player-thumb'>
+                            <img src={song.thumbnailM || '../../images/music.jpg'} alt={song.title}></img>
+                            {play ? <><div className='waveBg'></div><div className="wave">
+                                <div className="obj"></div>
+                                <div className="obj"></div>
+                                <div className="obj"></div>
+                                <div className="obj"></div>
+                                <div className="obj"></div>
+                                <div className="obj"></div>
+                                <div className="obj"></div>
+                                <div className="obj"></div>
+                            </div></> : ``}
+                        </div>
+                        <div className='player-title'>
+                            <p className='player-name'>{song.title}</p>
+                            <p className="player-singer">{song.artists?.map((item, index) => <Link to={'/artist/' + item.alias} key={index} state={item.alias}>{item.name}{index + 1 === song.artists.length ? "" : " • "}</Link>)} </p>
+
+                        </div>
+                    </div>
+
+                    <div className='player-progress'>
+                        <input className="slider" id='sliderTime' type="range" min="0" max={song.duration} value={hmsToSeconds(currentTime)} onChange={handleChangeTime} />
+                        <p className='time'>{currentTime}</p>
+                        <p className='duration'>{secondsToHms(song.duration)}</p>
+                    </div>
                     <div className='player-controls'>
                         <ul>
+                            <li>
+                                <button>
+                                    <span className='ooms-icon random'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                            <path fillRule="evenodd" d="M12 5.25c1.213 0 2.415.046 3.605.135a3.256 3.256 0 013.01 3.01c.044.583.077 1.17.1 1.759L17.03 8.47a.75.75 0 10-1.06 1.06l3 3a.75.75 0 001.06 0l3-3a.75.75 0 00-1.06-1.06l-1.752 1.751c-.023-.65-.06-1.296-.108-1.939a4.756 4.756 0 00-4.392-4.392 49.422 49.422 0 00-7.436 0A4.756 4.756 0 003.89 8.282c-.017.224-.033.447-.046.672a.75.75 0 101.497.092c.013-.217.028-.434.044-.651a3.256 3.256 0 013.01-3.01c1.19-.09 2.392-.135 3.605-.135zm-6.97 6.22a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.752-1.751c.023.65.06 1.296.108 1.939a4.756 4.756 0 004.392 4.392 49.413 49.413 0 007.436 0 4.756 4.756 0 004.392-4.392c.017-.223.032-.447.046-.672a.75.75 0 00-1.497-.092c-.013.217-.028.434-.044.651a3.256 3.256 0 01-3.01 3.01 47.953 47.953 0 01-7.21 0 3.256 3.256 0 01-3.01-3.01 47.759 47.759 0 01-.1-1.759L6.97 15.53a.75.75 0 001.06-1.06l-3-3z" clipRule="evenodd" />
+                                        </svg>
+
+                                    </span>
+                                </button>
+                            </li>
                             <li>
                                 <button onClick={handlePrevSong}>
                                     <span className='ooms-icon prev'>
@@ -149,7 +228,6 @@ function Player({ song }) {
                                 </button>
 
                             </li>
-
                             {play ? <li>
                                 <button onClick={handlePlay}>
                                     <span className='ooms-icon pause'>
@@ -177,15 +255,18 @@ function Player({ song }) {
                                     </span>
                                 </button>
                             </li>
+
+                            <li>
+                                <button>
+                                    <span className='ooms-icon loop'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                            <path fillRule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clipRule="evenodd" />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </li>
                         </ul>
                     </div>
-                    <div className='player-progress'>
-                        <input className="slider" id='sliderTime' type="range" min="0" max={song.duration} value={hmsToSeconds(currentTime)} onChange={handleChangeTime} />
-                        <p className='time'>{currentTime}</p>
-                        <p className='duration'>{secondsToHms(song.duration)}</p>
-                    </div>
-                </div>
-                <div className='player-right'>
                     <div className='player-volume'>
                         {!volume
                             ? <button onClick={handleVolume}>
@@ -205,16 +286,13 @@ function Player({ song }) {
                             </button>}
                         <input className="slider" id='sliderVolume' type="range" min="0" max="100" value={volumeValue * 100} onChange={handleChangeVolume} />
                     </div>
-                    {/* <div className='player-download'>
-                        <a href={srcAudio} download>
-                            <span className='ooms-icon'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                <path fillRule="evenodd" d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75zm-9 13.5a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z" clipRule="evenodd" />
-                            </svg>
-                            </span>
-                        </a>
-
+                    {/* <div className='player-lyrics'>
+                        <button>Lyrics</button>
                     </div> */}
                 </div>
+
+
+
                 <audio
                     id="track"
                     autoPlay

@@ -1,7 +1,7 @@
 $textDur: 2000ms;
 $waveDur: 4000ms;
 .ooms-working {
-    width: 65%;
+    width: 100%;
     position: relative;
     margin: 0 auto;
     display: flex;
@@ -10,7 +10,7 @@ $waveDur: 4000ms;
     min-height: 500px;
     margin-top: 30px;
     img {
-        width: 500px;
+        width: 400px;
         margin-top: 30px;
     }
     .container {
@@ -19,13 +19,14 @@ $waveDur: 4000ms;
     }
 
     .text {
-        font-size: 6rem;
-        font-weight: 900;
+        font-size: 5rem;
+        font-weight: 700;
         display: inline-block;
         position: absolute;
         bottom: 0;
         animation: text $textDur ease-in infinite;
         transform: translatez(0);
+        color: var(--textTitle);
         &-w {
             left: 0rem;
             transform: translate3d(0, -4rem, 0);
@@ -161,7 +162,8 @@ $waveDur: 4000ms;
         margin-bottom: 10px;
     }
     .ooms-cons {
-        font-size: 22px;
+        font-size: 17px;
+        color: var(--linkColor);
     }
     .ooms-home {
         a {

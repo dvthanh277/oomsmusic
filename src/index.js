@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './routes/'
 
 import './css/reset.css';
-import './css/index.css';
+import './css/index.scss';
 
 import DefaultLayout from './Layout/DefaultLayout/DefaultLayout';
 

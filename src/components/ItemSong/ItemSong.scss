@@ -6,17 +6,22 @@
     border-color: #e2e8f0;
     margin-bottom: 10px;
     border-radius: 20px;
-    padding: 10px 30px 10px 10px;
-    max-height: 60px;
+    padding: 10px 20px 10px 10px;
+    max-height: 80px;
+    height: 80px;
     justify-content: space-between;
     position: relative;
+    width: 100%;
     .song {
         &-thumb {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
             cursor: pointer;
             transition: all 0.3s;
+            &.circle {
+                border-radius: 50%;
+            }
             &:hover {
                 opacity: 0.8;
                 transition: all 0.3s;
@@ -25,11 +30,15 @@
         &-head {
             display: flex;
             align-items: center;
-            width: 50%;
+            width: 75%;
+            .title-wrapper {
+                width: 100%;
+            }
         }
         &-title {
-            font-weight: bold;
-            margin: 0 0 0 10px;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 0 0 5px 10px;
             max-width: 100%;
             min-width: 100%;
             word-break: break-word;
@@ -39,6 +48,7 @@
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s;
+            color: var(--textSubtitle);
             &.active {
                 color: #422afb;
             }
@@ -48,23 +58,43 @@
             }
         }
         &-singer {
-            max-width: 20%;
-            min-width: 20%;
-            color: #afafaf;
+            margin-left: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: var(--linkColor);
+
+            a {
+                margin-top: 3px;
+                font-size: 15px;
+                color: var(--linkColor);
+                word-break: break-word;
+
+                transition: all 0.3s;
+                &:hover {
+                    color: var(--primary);
+                    opacity: 0.7;
+                    transition: all 0.3s;
+                }
+            }
         }
         &-duration {
-            min-width: 10%;
-            max-width: 10%;
             text-align: center;
+            color: var(--linkColor);
+            opacity: 0.8;
+            font-size: 14px;
         }
         &-play {
             transition: all 0.3s;
-            margin-left: 20px;
             &:hover {
                 opacity: 0.8;
                 transition: all 0.3s;
             }
             span {
+                color: var(--primary);
                 width: 30px;
                 height: 30px;
             }

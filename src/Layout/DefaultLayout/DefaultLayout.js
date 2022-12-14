@@ -12,8 +12,22 @@ function DefaultLayout({ children }) {
     const [song, setSong] = useState([])
     const [isPlay, setIsPlay] = useState(false);
 
-    const handleClickSong = (songValue, list) => {
-        localStorage.setItem('listPlay', JSON.stringify(list.filter(item => item.streamingStatus === 1)))
+    const handleClickSong = async (songValue, list) => {
+        if (list) {
+            localStorage.setItem('listPlay', JSON.stringify(list.filter(item => item.streamingStatus === 1)))
+        }
+        let listPlay = JSON.parse(localStorage.getItem("listPlay"));
+        let songIndex = listPlay.findIndex((item) => item.encodeId === songValue.encodeId);
+        if (songIndex === listPlay.length - 1) {
+            await request.get(apiPath.recommendSong + songValue.encodeId).then((resRecommend) => {
+                if (resRecommend.data) {
+                    let listPlayNew = [...listPlay, ...resRecommend.data.items]
+                    let filterDuplicate = new Set(listPlayNew)
+                    let listPlayFilter = [...filterDuplicate]
+                    localStorage.setItem('listPlay', JSON.stringify(listPlayFilter.filter(item => item.streamingStatus === 1)))
+                }
+            })
+        }
         setSong(songValue)
     }
     const handleIsPlay = (playValue) => {
@@ -27,14 +41,15 @@ function DefaultLayout({ children }) {
         handleIsPlay
     }
     return (
-        <>
-            <SongContext.Provider value={value}>
+        <SongContext.Provider value={value}>
+            <div className="ooms-content" id="ooms-content">
                 <Header></Header>
-                <div className="ooms-content" id="ooms-content">{children}</div>
                 <Navbar></Navbar>
+                <div className="ooms-content-wrapper"> {children}</div>
                 <Player song={song}></Player>
-            </SongContext.Provider>
-        </>
+            </div>
+
+        </SongContext.Provider>
     );
 }
 export default DefaultLayout;

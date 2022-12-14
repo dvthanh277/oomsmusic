@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import BoxMusic from "../../components/BoxMusic/BoxMusic";
-import ItemSong1 from "../../components/ItemSong1/ItemSong1";
+import ItemSong from "../../components/ItemSong/ItemSong";
 import Loading from "../../components/Loading/Loading";
 import { SongContext } from "../../Layout/DefaultLayout/DefaultLayout";
 import { apiPath } from "../../ultis/apiPath";
@@ -9,8 +9,9 @@ import request from "../../ultis/axios";
 
 import './DetailList.scss'
 function DetailList() {
+    const params = useParams();
     const location = useLocation();
-    var id = location.state;
+    var id = location.state || params.id.replace(".html", "");
     const [loading, setLoading] = useState(true)
     const [listPlay, setListPlay] = useState([]);
     const [listBottom, setListBottom] = useState([]);
@@ -81,7 +82,7 @@ function DetailList() {
                     </div>
                     <div className="ooms-playlist-song">
                         {listPlaySong.map((item, index) => {
-                            return <ItemSong1 props={item} list={listPlaySong} key={index}></ItemSong1>;
+                            return <ItemSong props={item} list={listPlaySong} key={index}></ItemSong>;
                         })}
                     </div>
 

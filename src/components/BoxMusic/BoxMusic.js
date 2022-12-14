@@ -9,7 +9,7 @@ function BoxMusic({ props }) {
                 </Link>
             </div>
             <Link to={props.link} state={props.encodeId}><p className="box-title">{props.title}</p></Link>
-            <p className="box-description">{props.sortDescription}</p>
+            <p className="box-description">{props.sortDescription || props.releaseDate}</p>
         </div>
     );
 }

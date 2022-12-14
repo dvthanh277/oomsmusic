@@ -7,5 +7,6 @@ export const apiPath = {
     artist: '/artist?name=',
     detailPlaylist: '/detailplaylist?id=',
     detailPlaylistBottom: '/detaibottom?id=',
-    listSong: '/getListSong?page=0&count=0&id='
+    listSong: '/getListSong?page=0&count=0&id=',
+    recommendSong: '/recommendSong?id='
 }

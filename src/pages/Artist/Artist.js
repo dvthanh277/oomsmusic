@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import ItemSong1 from "../../components/ItemSong1/ItemSong1";
-import ItemSong2 from "../../components/ItemSong2/ItemSong2";
+import BoxMusic from "../../components/BoxMusic/BoxMusic";
+import ItemSong from "../../components/ItemSong/ItemSong";
 import Loading from "../../components/Loading/Loading";
 import { SongContext } from "../../Layout/DefaultLayout/DefaultLayout";
 import { apiPath } from "../../ultis/apiPath";
@@ -17,7 +17,6 @@ function Artist() {
     // const context = useContext(SongContext)
     useEffect(() => {
         request.get(apiPath.artist + name).then((res) => {
-            console.log(res.data);
             if (res.data) {
                 setLoading(false)
                 setData(res.data)
@@ -31,6 +30,7 @@ function Artist() {
     }
     else {
         const dataSong = data.sections[0];
+        const dataPlaylist = data.sections.filter(item => item.sectionType === "playlist");
         return (
             <>
                 <div className="ooms-artist">
@@ -51,10 +51,25 @@ function Artist() {
                             </h2>
                             <div className="artist-song-wrapper">
                                 {dataSong.items.filter((item, index) => index < 20).map((item, index) => {
-                                    return <ItemSong2 props={item} list={dataSong.items} key={index}></ItemSong2>
+                                    return <ItemSong props={item} list={dataSong.items} key={index}></ItemSong>
                                 })}
                             </div>
                         </div>
+                        {dataPlaylist.map((item, index) =>
+                            <div className="artist-album" key={index}>
+                                <h2 className="ooms-title-head">{item.title}
+                                </h2>
+                                <div className="artist-album-wrapper">
+                                    {
+                                        item.items.filter((item, index) => index < 10).map((item2, index2) => {
+                                            return <BoxMusic props={item2} key={index2}></BoxMusic>
+                                        })
+                                    }
+                                </div>
+
+                            </div>
+                        )}
+
                     </div>
                 </div>
             </>

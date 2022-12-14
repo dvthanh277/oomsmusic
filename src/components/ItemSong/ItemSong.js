@@ -1,21 +1,25 @@
 
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { SongContext } from '../../Layout/DefaultLayout/DefaultLayout';
 import { secondsToHms } from '../../ultis/time'
 
-import './ItemSong1.scss'
-function ItemSong1({ props, list }) {
+import './ItemSong.scss'
+function ItemSong({ props, list, style }) {
     const context = useContext(SongContext)
     return (
         <div className="ooms-item-song1">
             {/* {!props.isWorldWide ? <div className='isWorldWide'><p className='textNoti'>Nội dung này không tải được cho quốc gia của bạn!</p></div> : ``} */}
             {props.streamingStatus === 2 ? <div className='vip-song'><img src='../../images/vip.png' alt='vip-song'></img><span>VIP Song</span></div> : !props.isWorldWide ? <div className='isWorldWide'><img src='../../images/location.png' alt='location-song'></img><span>Nội dung này không tải được cho quốc gia của bạn!</span></div> : ``}
             <div className="song-head">
-                <img className="song-thumb" src={props.thumbnail} alt={props.title} onClick={() => context.handleClickSong(props, list)}></img>
-                <p onClick={() => context.handleClickSong(props, list)} className={`song-title ${context.song.encodeId === props.encodeId ? `active` : ``}`} title={props.title}>{props.title}</p>
+                <img className={`song-thumb ${style}`} src={props.thumbnail} alt={props.title} onClick={() => context.handleClickSong(props, list)}></img>
+                <div className='title-wrapper'>
+                    <p onClick={() => context.handleClickSong(props, list)} className={`song-title ${context.song.encodeId === props.encodeId ? `active` : ``}`} title={props.title}>{props.title}</p>
+                    <p className="song-singer">{props.artists.map((item, index) => <Link to={'/artist/' + item.alias} key={index} state={item.alias}>{item.name}{index + 1 === props.artists.length ? "" : " ,  "} </Link>)} </p>
+                </div>
             </div>
 
-            <p className="song-singer"> {props.artistsNames} </p>
+
             <p className="song-duration">{secondsToHms(props.duration)}</p>
             {context.song.encodeId === props.encodeId && context.isPlay
                 ? <div className="wave">
@@ -37,4 +41,4 @@ function ItemSong1({ props, list }) {
     );
 }
 
-export default ItemSong1;
+export default ItemSong;

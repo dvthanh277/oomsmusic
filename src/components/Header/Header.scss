@@ -1,24 +1,20 @@
 header {
-    right: 30px;
-    width: calc(100vw - 350px);
-    position: fixed;
-    top: 16px;
+    height: 98px;
+    width: calc(100% - 260px);
+    top: 0;
+    left: 260px;
+    position: absolute;
     z-index: 10;
-    border-radius: 20px;
-    min-height: 75px;
-    background-color: #ffffff;
-    box-shadow: 0 -30px 0 0 rgb(244 244 244);
+    background: var(--backgroundBody);
 }
 .ooms {
     &-header {
         &-content {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 75px;
-            padding: 0 30px;
-            border-bottom: 3px solid rgb(244 244 244);
-            border-radius: 20px;
+            padding: 0 42px;
+            height: 98px;
+            justify-content: end;
+            gap: 0 20px;
         }
         &-search {
             display: flex;
@@ -62,8 +58,8 @@ header {
             }
             .btn-sign {
                 color: #fff;
-                font-size: 18px;
-                padding: 5px 20px;
+                font-size: 16px;
+                padding: 10px 20px;
                 border-radius: 15px;
                 margin-left: 10px;
                 min-width: 120px;

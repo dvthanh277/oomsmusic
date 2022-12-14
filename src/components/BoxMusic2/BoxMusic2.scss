@@ -1,9 +1,3 @@
-.ooms-home-top {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
 .ooms-boxMusic2 {
     width: 100%;
     padding: 10px;
@@ -14,12 +8,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     cursor: pointer;
-    &a {
-        display: block;
-        width: 49%;
-    }
+
     &:hover {
         img {
             transform: scale(1.05);
@@ -45,15 +36,15 @@
         width: calc(100% - 160px);
     }
     .box-title {
-        font-weight: bold;
+        font-weight: 600;
         margin: 12px 8px 16px;
         transition: all 0.3s;
-        font-size: 20px;
+        font-size: 18px;
     }
     .box-description {
         color: #afafaf;
         margin: 0 8px;
-        font-size: 16px;
+        font-size: 15px;
         word-break: break-word;
         word-break: break-word;
         display: -webkit-box;
