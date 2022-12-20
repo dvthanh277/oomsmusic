@@ -5,17 +5,18 @@ import { SongContext } from '../../Layout/DefaultLayout/DefaultLayout';
 import { secondsToHms } from '../../ultis/time'
 
 import './ItemSong.scss'
-function ItemSong({ props, list, style }) {
+function ItemSong({ props, list, style, no }) {
     const context = useContext(SongContext)
     return (
         <div className="ooms-item-song1">
             {/* {!props.isWorldWide ? <div className='isWorldWide'><p className='textNoti'>Nội dung này không tải được cho quốc gia của bạn!</p></div> : ``} */}
             {props.streamingStatus === 2 ? <div className='vip-song'><img src='../../images/vip.png' alt='vip-song'></img><span>VIP Song</span></div> : !props.isWorldWide ? <div className='isWorldWide'><img src='../../images/location.png' alt='location-song'></img><span>Nội dung này không tải được cho quốc gia của bạn!</span></div> : ``}
             <div className="song-head">
+                {no ? <span className='song-no'>{no < 10 ? "0" + no : no}.</span> : ""}
                 <img className={`song-thumb ${style}`} src={props.thumbnail} alt={props.title} onClick={() => context.handleClickSong(props, list)}></img>
                 <div className='title-wrapper'>
                     <p onClick={() => context.handleClickSong(props, list)} className={`song-title ${context.song.encodeId === props.encodeId ? `active` : ``}`} title={props.title}>{props.title}</p>
-                    <p className="song-singer">{props.artists.map((item, index) => <Link to={'/artist/' + item.alias} key={index} state={item.alias}>{item.name}{index + 1 === props.artists.length ? "" : " ,  "} </Link>)} </p>
+                    <p className="song-singer">{props?.artists?.map((item, index) => <Link to={'/artist/' + item.alias} key={index} state={item.alias}>{item.name}{index + 1 === props.artists.length ? "" : " ,  "} </Link>)} </p>
                 </div>
             </div>
 

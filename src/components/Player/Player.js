@@ -25,7 +25,7 @@ function Player({ song }) {
         if (song.encodeId) {
             let songActive = document.querySelectorAll('.playlist-song .song.active');
             document.querySelector('.playlist-song').scrollTo({
-                top: songActive[songActive.length - 1].offsetTop - 78 * 2,
+                top: songActive[songActive.length - 1]?.offsetTop - 78 * 2,
                 behavior: "smooth"
             })
             request.get(`/song?id=${song.encodeId}`).then(async (res) => {
@@ -150,7 +150,7 @@ function Player({ song }) {
                                         <img className='song-thumb' src={props.thumbnail} alt={props.title} onClick={() => context.handleClickSong(props)}></img>
                                         <div className='title-wrapper'>
                                             <p onClick={() => context.handleClickSong(props)} className={`song-title ${context.song.encodeId === props.encodeId ? `active` : ``}`} title={props.title}>{props.title}</p>
-                                            <p className="song-singer">{props.artists.map((item, index) => <Link to={'/artist/' + item.alias} key={index} state={item.alias}>{item.name}{index + 1 === props.artists.length ? "" : " ,  "} </Link>)} </p>
+                                            <p className="song-singer">{props.artists?.map((item, index) => <Link to={'/artist/' + item.alias} key={index} state={item.alias}>{item.name}{index + 1 === props.artists.length ? "" : " ,  "} </Link>)} </p>
                                         </div>
                                     </div>
 

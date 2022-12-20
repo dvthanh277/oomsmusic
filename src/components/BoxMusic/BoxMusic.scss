@@ -8,10 +8,8 @@
     // width: calc(100% / 5 - 30px);
     width: 230px;
     padding: 10px 10px 20px;
-    background-color: #fff;
+    background-color: var(--background);
     border-radius: 20px;
-    // box-shadow: rgba(112, 144, 176, 0.08) 14px 17px 40px 4px;
-    border-color: #e2e8f0;
     .box-image {
         border-radius: 20px;
         overflow: hidden;
@@ -41,12 +39,13 @@
     a:hover > .box-title {
         padding-left: 2px;
         transition: all 0.3s;
-        color: #422afb;
+        color: var(--primary);
     }
     .box-description {
-        color: #afafaf;
+        color: var(--second);
         margin: 0 8px;
         font-size: 16px;
+        line-height: 18px;
         word-break: break-word;
         cursor: default;
         word-break: break-word;

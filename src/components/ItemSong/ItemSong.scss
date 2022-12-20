@@ -1,9 +1,7 @@
 .ooms-item-song1 {
     display: flex;
     align-items: center;
-    background-color: #fff;
-    box-shadow: rgb(112 144 176 / 8%) 1px 0px 40px 4px;
-    border-color: #e2e8f0;
+    background-color: var(--background);
     margin-bottom: 10px;
     border-radius: 20px;
     padding: 10px 20px 10px 10px;
@@ -13,6 +11,12 @@
     position: relative;
     width: 100%;
     .song {
+        &-no {
+            width: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--sub);
+        }
         &-thumb {
             width: 60px;
             height: 60px;
@@ -37,7 +41,7 @@
         }
         &-title {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 15px;
             margin: 0 0 5px 10px;
             max-width: 100%;
             min-width: 100%;
@@ -48,9 +52,10 @@
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s;
+            line-height: 18px;
             color: var(--textSubtitle);
             &.active {
-                color: #422afb;
+                color: var(--primary);
             }
             &:hover {
                 color: #7664ff;

@@ -94,7 +94,7 @@
                             transition: all 0.3s;
                             color: var(--textSubtitle);
                             &.active {
-                                color: #422afb;
+                                color: var(--primary);
                             }
                             &:hover {
                                 color: #7664ff;
@@ -225,7 +225,7 @@
                 a {
                     margin-top: 3px;
                     font-size: 14px;
-                    color: #afafaf;
+                    color: var(--second);
                     word-break: break-word;
                     display: -webkit-box;
                     -webkit-line-clamp: 2;

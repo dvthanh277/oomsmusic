@@ -1,10 +1,8 @@
 .ooms-boxMusic2 {
     width: 100%;
     padding: 10px;
-    background-color: #fff;
+    background-color: var(--background);
     border-radius: 20px;
-    box-shadow: rgba(112, 144, 176, 0.08) 14px 17px 40px 4px;
-    border-color: #e2e8f0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -20,7 +18,7 @@
         .box-title {
             padding-left: 2px;
             transition: all 0.3s;
-            color: #422afb;
+            color: var(--primary);
         }
     }
     .box-image {
@@ -42,9 +40,10 @@
         font-size: 18px;
     }
     .box-description {
-        color: #afafaf;
+        color: var(--second);
         margin: 0 8px;
         font-size: 15px;
+        line-height: 18px;
         word-break: break-word;
         word-break: break-word;
         display: -webkit-box;

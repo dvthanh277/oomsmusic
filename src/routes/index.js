@@ -4,6 +4,7 @@ import DetailList from "../pages/DetailList/DetailList";
 import Home from "../pages/Home/Home";
 import NewMusic from "../pages/NewMusic/NewMusic";
 import News from "../pages/News/News";
+import Search from "../pages/Search/Search";
 import Songs from "../pages/Songs/Songs";
 import Top100 from "../pages/Top100/Top100";
 import Trending from "../pages/Trending/Trending";
@@ -45,6 +46,9 @@ export const publicRoutes = [
     },
     {
         path: '/songs/nghe-si/:name', component: Songs
+    },
+    {
+        path: '/tim-kiem/:search', component: Search
     },
 ]
 

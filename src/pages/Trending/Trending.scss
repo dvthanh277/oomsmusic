@@ -1,0 +1,39 @@
+.ooms-chart {
+    background: var(--background);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    .chart {
+        height: 340px;
+    }
+}
+.all-song-wrapper {
+    width: 100%;
+    height: 900px;
+    overflow: hidden;
+    transition: all 0.3s;
+
+    &.active {
+        height: auto;
+        transition: all 0.3s;
+    }
+}
+.view-more {
+    width: 110px;
+    display: block;
+    height: 38px;
+    margin: 10px auto 0;
+    color: #fff;
+    font-size: 15px;
+    background: var(--primary);
+    border-radius: 12px;
+    transition: all 0.3s;
+    &:hover {
+        opacity: 0.85;
+        transform: translateY(-3px);
+        transition: all 0.3s;
+    }
+    &.hide {
+        display: none;
+    }
+}

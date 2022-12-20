@@ -1,0 +1,26 @@
+.ooms-search-song {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    .ooms-item-song1 {
+        width: 48.2%;
+    }
+}
+.ooms-search-header {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 0 10px 0;
+    height: 60px;
+    border-bottom: 1px solid var(--sub);
+    position: sticky;
+    top: -10px;
+    z-index: 5;
+    background: var(--backgroundBody);
+    transition: all 0.3s;
+    .search-value {
+        font-size: 30px;
+        font-weight: bold;
+        color: var(--primary);
+    }
+}
